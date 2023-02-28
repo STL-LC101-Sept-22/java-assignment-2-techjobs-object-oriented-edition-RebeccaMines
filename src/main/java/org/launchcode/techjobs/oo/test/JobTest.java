@@ -1,5 +1,6 @@
 package org.launchcode.techjobs.oo.test;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -15,34 +16,34 @@ public class JobTest {
 
     @Test
     public void testSettingJobId() {
-        Job jobA = new Job();
-        Job jobB = new Job();
+        Job aJob = new Job();
+        Job anotherJob = new Job();
 
-        assertNotEquals(jobA, jobB);
+        assertNotEquals(aJob.getId(), anotherJob.getId());
     }
 
     @Test
     public void testJobConstructorSetsAllFields() {
         Job aJob = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
-
-        assertEquals(aJob.getName(), "Product tester");
-        assertEquals(aJob.getEmployer().getValue(), "ACME");
-        assertEquals(aJob.getLocation().getValue(), "Desert");
-        assertEquals(aJob.getPositionType().getValue(), "Quality control");
-        assertEquals(aJob.getCoreCompetency().getValue(), "Persistence");
-
         assertTrue(aJob.getName() instanceof String);
+        assertEquals("Product tester", aJob.getName());
         assertTrue(aJob.getEmployer() instanceof Employer);
+        assertEquals("ACME", aJob.getEmployer().getValue());
         assertTrue(aJob.getLocation() instanceof Location);
+        assertEquals("Desert", aJob.getLocation().getValue());
         assertTrue(aJob.getPositionType() instanceof PositionType);
+        assertEquals("Quality control", aJob.getPositionType().getValue());
         assertTrue(aJob.getCoreCompetency() instanceof CoreCompetency);
+        assertEquals("Persistence", aJob.getCoreCompetency().getValue());
+
+
     }
 
     @Test
     public void testJobsForEquality() {
-        Job jobC = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
-        Job jobD = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
-        assertFalse(jobC.equals(jobD));
+        Job aJob = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+        Job anotherJob = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+        Assert.assertFalse(aJob.equals(anotherJob));
     }
 
     @Test
@@ -50,8 +51,8 @@ public class JobTest {
         Job jobE = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
         String job = jobE.toString();
 
-        assertEquals(job.charAt(0), '\n');
-        assertEquals(job.charAt(job.toString().length() - 1), '\n');
+        assertEquals(job.toString().charAt(0), '\n');
+        assertEquals(job.toString().charAt(job.toString().length() - 1), '\n');
     }
 
     @Test
